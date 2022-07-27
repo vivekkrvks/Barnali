@@ -27,7 +27,7 @@ export default function Message() {
         </h1>
 
           <Typography variant="subtitle1" gutterBottom component="div">
-        This is the very first time when I am sharing my personal feelings with someone. I don't know how & why did you became so special to me, but it's a fact now. I also don't know what you will think about me on this, but I thought I should share my soul's voice with you. Let's give a chance to understand more about each other. 
+       { `This is the very first time when I am sharing my personal feelings with someone. I don't know how & why did you became so special to me, but it's a fact now. I also don't know what you will think about me on this, but I thought I should share my soul's voice with you. Let's give a chance to understand more about each other.` }
 
       </Typography>
       <Typography variant="subtitle1" gutterBottom component="div">
