@@ -31,7 +31,7 @@ export default function Message() {
 
       </Typography>
       <Typography variant="subtitle1" gutterBottom component="div">
- I promise you that I shall try my best to meet & fulfill your all expectations throughout my life. You just have to dream whatever you want and rest will be my job to make your dream come true. Please give me a chance to prove my honesty, loyalty and dedication towards you, if in case you will figure out that I am not a guy of your type, I promise that I will walk out from your life completely and never disturb you again, But before that you should give me a chance. However, it is never necessary for you to have the same feelings as I have about you, so in case you don't want to continue please feel free to write to me. 
+ {`I promise you that I shall try my best to meet & fulfill your all expectations throughout my life. You just have to dream whatever you want and rest will be my job to make your dream come true. Please give me a chance to prove my honesty, loyalty and dedication towards you, if in case you will figure out that I am not a guy of your type, I promise that I will walk out from your life completely and never disturb you again, But before that you should give me a chance. However, it is never necessary for you to have the same feelings as I have about you, so in case you don't want to continue please feel free to write to me.`} 
       </Typography>
       <Typography variant="subtitle2" gutterBottom component="div">
 I promise you that I will always respect your all decisions, your feelings, your emotions from the deepest of my heart forever.
@@ -62,7 +62,7 @@ Your well-wisher! 
 <br/>
  
 <Dialog open={openDialog} fullScreen onClose={()=>setOpenDialog(false)}>
-        <DialogTitle><Typography variant="body2" gutterBottom component="div">Please write your heart's voice.</Typography> </DialogTitle>
+        <DialogTitle><Typography variant="body2" gutterBottom component="div">{`Please write your heart's voice.`}</Typography> </DialogTitle>
        
           <DialogContent>
 
