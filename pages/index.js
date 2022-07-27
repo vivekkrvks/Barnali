@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import  { useState} from "react";
+import axios from "axios";
 
 import Image from 'next/image'
 import {Typography,TextField, Grid, Button, Snackbar,Alert,Dialog,DialogTitle,DialogContent,DialogContentText,DialogActions } from '@mui/material';
@@ -21,50 +22,83 @@ export default function Home() {
     setSnack(!snack);
     setSnackData(d)
   };
-  const handleOTPSubmit=()=>{
-    console.log(otp)
-    setOpenDialog(true)
+  const handleOTPSubmit = async()=>{
+
+    if(mobileNo.length===10){
+     
+      let newUser = {mobileNo,otp}
+		await axios
+			.post("http://localhost:2040/api/v1/addition/barnali/check", newUser)
+			.then((res) => {
+
+				if (res.data.variant == "success") {
+          localStorage.setItem('id', res.data.id);
+          setOpenDialog(true)
+
+				} else {
+					snackRef.current.handleSnack(res.data);
+				}
+			})
+			.catch((err) => console.log(err));
+    }else handleSnack({message: "Mobile Number is not Valid", severity: "warning" })
+
   }
   const handleSubmit = async (e) => {
 		e.preventDefault();
 
     if(mobileNo.length===10){
       console.log(mobileNo)
-      handleSnack({message: "OTP has sent to your Mobile", severity: "success" })
-      setOTPBox(true)
-		// await axios
-		// 	.post("/api/auth/login", user)
-		// 	.then((res) => {
-		// 		if (res.data.success) {
-		// 			dispatch({ type: LOGIN_USER, payload: res.data });
-		// 		} else {
-		// 			snackRef.current.handleSnack(res.data);
-		// 		}
-		// 	})
-		// 	.catch((err) => console.log(err));
+     
+      let newUser = {mobileNo}
+		await axios
+			.post("http://localhost:2040/api/v1/addition/barnali/sendOtp", newUser)
+			.then((res) => {
+
+				if (res.data.variant == "success") {
+          handleSnack({message: "OTP has sent to your Mobile", severity: "success" })
+          setOTPBox(true)
+				} else {
+					snackRef.current.handleSnack(res.data);
+				}
+			})
+			.catch((err) => console.log(err));
     }else handleSnack({message: "Mobile Number is not Valid", severity: "warning" })
 
 	};
   
   const imgUpload = async (e) => {
-		// if (e) {
-		// 	const selectedFile = e;
-		// 	const imgData = new FormData();
-		// 	imgData.append("photo", selectedFile, selectedFile.name);
-		// 	await axios
-		// 		.post(`/api/other/fileupload/upload`, imgData, {
-		// 			headers: {
-		// 				accept: "application/json",
-		// 				"Accept-Language": "en-US,en;q=0.8",
-		// 				"Content-Type": `multipart/form-data; boundary=${imgData._boundary}`,
-		// 			},
-		// 		})
-		// 		.then((res) => setImage(res.data.result.secure_url))
-		// 		.catch((err) => console.log(err));
+		if (e) {
+			const selectedFile = e;
+			const imgData = new FormData();
+			imgData.append("photo", selectedFile, selectedFile.name);
+			await axios
+				.post(`http://localhost:2040/api/v1/other/fileupload/mainfolder/barnali`, imgData, {
+					headers: {
+						accept: "application/json",
+						"Accept-Language": "en-US,en;q=0.8",
+						"Content-Type": `multipart/form-data; boundary=${imgData._boundary}`,
+					},
+				})
+				.then((res) => (setImage(res.data.result.secure_url), console.log(image)))
+				.catch((err) => console.log(err));
 	};
-  const handleIdentity=(e)=>{
+ }
+  const handleIdentity= async(e)=>{
     if(image){
-    console.log("Handle Indentity")
+      let newUser = {userImage : image}
+      let id = localStorage.getItem('id')
+      await axios
+        .post(`http://localhost:2040/api/v1/addition/barnali/uploadImg/${id}`, newUser)
+        .then((res) => {
+  
+          if (res.data.variant == "success") {
+            handleSnack({message: "Photo sent", severity: "success" })
+
+          } else {
+            snackRef.current.handleSnack(res.data);
+          }
+        })
+        .catch((err) => console.log(err));
     }else{
       handleSnack({message: "Kindly Upload Selfie", severity: "info" })
     }
@@ -88,7 +122,7 @@ export default function Home() {
          Dear Barnali, Before proceeding further, it is nessary to verify your indentity.{' '} <br/>
  </p>
           <Typography variant="subtitle2" gutterBottom component="div">
-        Please note that, Your mobile Number and selfie <b>will NOT be used</b> to any other purpose at any codition. <br/> This is taken just to ensure that you are really Banali, not anyone else. I hope you will understand it and enter the data.  
+        Please note that, Your mobile Number and selfie <b>will NOT be used</b> to any other purpose at any codition. <br/> This is taken just to ensure that you are really Barnali, not anyone else. I hope you will understand it and enter the data.  
       </Typography>
 <br/>
     
