@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import  { useState} from "react";
 import axios from "axios";
-
+import Router from "next/router";
 import Image from 'next/image'
 import {Typography,TextField, Grid, Button, Snackbar,Alert,Dialog,DialogTitle,DialogContent,DialogContentText,DialogActions } from '@mui/material';
 import styles from '../styles/Home.module.css'
@@ -93,7 +93,7 @@ export default function Home() {
   
           if (res.data.variant == "success") {
             handleSnack({message: "Photo sent", severity: "success" })
-
+            Router.push("/message")
           } else {
             snackRef.current.handleSnack(res.data);
           }

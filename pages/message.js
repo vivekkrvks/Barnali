@@ -1,17 +1,81 @@
 import Head from 'next/head'
-import  { useState} from "react";
+import  { useState, useEffect} from "react";
+import axios from "axios";
 
 import Image from 'next/image'
-import {Typography,TextField, Container, Button, Snackbar,Alert,Dialog,DialogTitle,DialogContent,DialogContentText,DialogActions, Grid } from '@mui/material';
 import styles from '../styles/Home.module.css'
+import {Typography,TextField, Grid, Button,Container, Snackbar,Alert,Dialog,DialogTitle,DialogContent,DialogContentText,DialogActions } from '@mui/material';
 
 export default function Message() {
+
+  const [snack, setSnack] =useState(false)
+	const [snackData, setSnackData] = useState({ message: "", severity: "success" });
+  const handleSnack = (d) => {
+    setSnack(!snack);
+    setSnackData(d)
+  };
+
+
+
+
+
+
   const [openDialog, setOpenDialog]=useState(false)
   const [reply, setReply] = useState("")
+  const [showMsg, setShowMgs] = useState(false)
   const submitReply=()=>{
     console.log(reply)
   }
+	useEffect(() => {
+    checkShowMsg()
+		
+	}, []);
+  const checkShowMsg = async()=>{
+    let id = localStorage.getItem('id')
+
+		await axios
+			.get(`http://localhost:2040/api/v1/addition/barnali/checkForShowMsg/${id}`)
+			.then((res) => {
+console.log(res.data)
+				if (res.data) {
+          if(res.data.showMsg)
+        {  localStorage.setItem('showMsg', res.data.showMsg);
+          
+          setShowMgs(res.data.showMsg)}
+				} else {
+					alert(res.data.message);
+				}
+			})
+			.catch((err) => console.log(err));
+   
+  }
+  const sendMsg = async(msg)=>{
+    let newData = {barnaliMessage:msg}
+    let id = localStorage.getItem('id')
+
+		await axios
+			.post(`http://localhost:2040/api/v1/addition/barnali/sendMsg/${id}`,newData)
+			.then((res) => {
+				if (res.data.variant == "success") {
+          alert(res.data.message);
+
+
+				} else {
+					alert(res.data.message);
+				}
+			})
+			.catch((err) => console.log(err));
+   
+  }
   return (
+<>
+    { (!showMsg) && (
+      <div> 
+      Please Wait for Photo Verification
+      </div>
+      )}
+
+   {showMsg && ( 
     <div className={styles.container}>
       <Head>
         <title>A Letter to Barnali</title>
@@ -79,7 +143,7 @@ Your well-wisher! 
         </DialogContent>
         <DialogActions>
           <Button onClick={()=>setOpenDialog(false)} variant="text" color='secondary'>Cancel</Button>
-          <Button onClick={submitReply} variant="contained">Submit Reply</Button>
+          <Button onClick={() => sendMsg(reply)} variant="contained">Submit Reply</Button>
         </DialogActions>
 
           
@@ -92,6 +156,7 @@ Your well-wisher! 
       </main>
 
       
-    </div>
+    </div>)}
+    </>
   )
 }
