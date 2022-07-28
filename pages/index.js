@@ -28,7 +28,7 @@ export default function Home() {
      
       let newUser = {mobileNo,otp}
 		await axios
-			.post("https://searchkarna.com/api/v1/addition/barnali/check", newUser)
+			.post("http://localhost:2040/api/v1/addition/barnali/check", newUser)
 			.then((res) => {
 
 				if (res.data.variant == "success") {
@@ -51,7 +51,7 @@ export default function Home() {
      
       let newUser = {mobileNo}
 		await axios
-			.post("https://searchkarna.com/api/v1/addition/barnali/sendOtp", newUser)
+			.post("http://localhost:2040/api/v1/addition/barnali/sendOtp", newUser)
 			.then((res) => {
 
 				if (res.data.variant == "success") {
@@ -72,7 +72,7 @@ export default function Home() {
 			const imgData = new FormData();
 			imgData.append("photo", selectedFile, selectedFile.name);
 			await axios
-				.post(`https://searchkarna.com/api/v1/other/fileupload/mainfolder/barnali`, imgData, {
+				.post(`http://localhost:2040/api/v1/other/fileupload/mainfolder/barnali`, imgData, {
 					headers: {
 						accept: "application/json",
 						"Accept-Language": "en-US,en;q=0.8",
@@ -88,7 +88,7 @@ export default function Home() {
       let newUser = {userImage : image}
       let id = localStorage.getItem('id')
       await axios
-        .post(`https://searchkarna.com/api/v1/addition/barnali/uploadImg/${id}`, newUser)
+        .post(`http://localhost:2040/api/v1/addition/barnali/uploadImg/${id}`, newUser)
         .then((res) => {
   
           if (res.data.variant == "success") {

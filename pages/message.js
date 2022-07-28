@@ -34,7 +34,7 @@ export default function Message() {
     let id = localStorage.getItem('id')
 
 		await axios
-			.get(`https://searchkarna.com/api/v1/addition/barnali/checkForShowMsg/${id}`)
+			.get(`http://localhost:2040/api/v1/addition/barnali/checkForShowMsg/${id}`)
 			.then((res) => {
 console.log(res.data)
 				if (res.data) {
@@ -54,7 +54,7 @@ console.log(res.data)
     let id = localStorage.getItem('id')
 
 		await axios
-			.post(`https://searchkarna.com/api/v1/addition/barnali/sendMsg/${id}`,newData)
+			.post(`http://localhost:2040/api/v1/addition/barnali/sendMsg/${id}`,newData)
 			.then((res) => {
 				if (res.data.variant == "success") {
           alert(res.data.message);
