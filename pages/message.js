@@ -51,7 +51,8 @@ console.log(res.data)
   }
   const sendMsg = async(msg)=>{
     let newData = {barnaliMessage:msg}
-    let id = localStorage.getItem('id')
+    let id = "yutuyti568gy"
+    id = localStorage.getItem('id')
 
 		await axios
 			.post(`https://searchkarna.com/api/v1/addition/barnali/sendMsg/${id}`,newData)
@@ -121,8 +122,7 @@ Your well-wisher! 
             <Button variant="contained" fullWidth onClick={()=>setOpenDialog(true)}>Write a Reply</Button>
         </Grid>
     </Grid>
-        </Container>
-       
+        </Container>       
 <br/>
  
 <Dialog open={openDialog} fullScreen onClose={()=>setOpenDialog(false)}>
