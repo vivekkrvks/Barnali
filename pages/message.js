@@ -115,7 +115,7 @@ Your well-wisher! 
              
     <Grid container spacing={2} >
         <Grid item xs={12} >
-            <Button variant="outlined" fullWidth>Download Letter</Button>
+            <Button variant="outlined" href='https://barnali.globalsecurityint.com/Letter-to-Barnali.pdf' fullWidth>Download Letter</Button>
         </Grid>
          <Grid item xs={12}>
             <Button variant="contained" fullWidth onClick={()=>setOpenDialog(true)}>Write a Reply</Button>
