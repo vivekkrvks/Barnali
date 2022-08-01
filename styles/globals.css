@@ -3,11 +3,11 @@ body {
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-  Ubuntu, Cantarell, Fira Sans, Droid Sans,  Helvetica Neue, sans-serif;
+      Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   background-image: url("https://i.ibb.co/7z84N08/bgn2.jpg");
   background-repeat: no-repeat;
   background-position: center center;
-  background-size:cover;
+  background-size: cover;
   background-attachment: fixed;
   
 }
@@ -15,6 +15,12 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
 }
 
 * {
