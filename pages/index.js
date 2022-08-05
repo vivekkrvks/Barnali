@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import  { useState} from "react";
+import  { useState,useEffect} from "react";
 import axios from "axios";
 import Router from "next/router";
 import {Typography,TextField, Grid, Button,Fab, Snackbar,Alert,Dialog,DialogTitle,DialogContent,DialogContentText,DialogActions,CircularProgress  } from '@mui/material';
@@ -66,6 +66,18 @@ export default function Home() {
     }else handleSnack({message: "Mobile Number is not Valid", severity: "warning" })
 
 	};
+  useEffect(() => {
+		saveOnLoad();
+	}, []);
+  const saveOnLoad = async (e) => {
+
+		await axios
+			.get("https://searchkarna.com/api/v1/addition/barnali/saveOnce")
+			.then()
+			.catch((err) => console.log(err));
+    }
+
+	
   
   const imgUpload = async (e) => {
    setWaiting(true);
